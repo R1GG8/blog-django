@@ -1,20 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Post, Category
-
-def index(request):
-    context = {
-        'title': 'Главная',
-    }
-
-    return render(request, 'blog/index.html', context=context)
-
-
-def about(request):
-    context = {
-        'title': 'О сайте',
-    }
-
-    return render(request, 'blog/about.html', context=context)
+from .forms import Post, PostForm
 
 
 def post_list(request):
@@ -26,3 +12,35 @@ def post_list(request):
     }
 
     return render(request, 'blog/post_list.html', context=context)
+
+
+def post_detail(request, post_slug):
+    post = get_object_or_404(Post, slug=post_slug)
+
+    context = {
+        'title': post.title,
+        'post': post,
+    }
+
+    return render(request, 'blog/post_detail.html', context=context)
+
+
+def addpost(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form_commit = form.save(commit=False)
+            form_commit.author = request.user
+            form_commit.save()
+            return redirect('blog:post_list')
+
+    else:
+        form = PostForm()
+
+    context = {
+        'title': 'Добавление поста',
+        'form': form,
+    }
+
+    return render(request, 'blog/addpost.html', context=context)
+

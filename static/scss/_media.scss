@@ -1,4 +1,15 @@
+@media (max-width: 1060px) {
+    .navbar {
+        font-size: 14px;
+    }
+}
+
+
 @media (max-width: 991.5px) {
+    .navbar {
+        font-size: 16px;
+    }
+
     ul {
         margin-bottom: 0 !important;
     }
@@ -17,3 +28,4 @@
 
     }
 }
+

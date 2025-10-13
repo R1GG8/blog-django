@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 from unidecode import unidecode
+from ckeditor_uploader.fields import RichTextUploadingField  # CKEditor с загрузкой файлов
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -16,7 +18,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     category = models.ForeignKey(to='Category', on_delete=models.CASCADE, verbose_name='Категория')
-    content = models.TextField(verbose_name='Содержимое')
+    content = RichTextUploadingField(verbose_name='Содержание')  # теперь можно вставлять картинки прямо в текст
     author = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name='Автор')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -32,22 +34,23 @@ class Post(models.Model):
     published = PublishedManager()
 
     def save(self, *args, **kwargs):
-        # Если статус поменялся на "Опубликовано" и дата публикации еще не установлена — ставим текущее время
-        if self.status == self.Status.PUBLISHED and self.published is None:
-            self.published = timezone.now()
+        # Если статус меняется на "Опубликовано" и дата публикации еще не установлена — ставим текущее время
+        if self.status == self.Status.PUBLISHED and self.published_at is None:
+            self.published_at = timezone.now()
 
-        # Если статус изменился на "Черновик", сбрасываем дату публикации (опционально)
+        # Если статус изменился на "Черновик" — сбрасываем дату публикации (по желанию)
         elif self.status == self.Status.DRAFT:
-            self.published = None
+            self.published_at = None
 
         # Автоматическая генерация slug
         if not self.slug:
+            base_slug = slugify(unidecode(self.title))
+            slug = base_slug
             counter = 1
-            slug = slugify(unidecode(self.title))
 
             # Проверяем уникальность slug
             while Post.objects.filter(slug=slug).exists():
-                slug = f"{slug}-{counter}"
+                slug = f"{base_slug}-{counter}"
                 counter += 1
 
             self.slug = slug
@@ -56,6 +59,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("blog:post_detail", args=[self.slug])
+    
 
     class Meta:
         verbose_name = 'Пост'

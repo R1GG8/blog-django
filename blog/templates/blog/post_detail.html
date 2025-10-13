@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container mt-4">
+        <div class="post-wrapper">
+            <div class="post-wrapper-head">
+                <a href="{{ post.get_absolute_url }}">
+                    <h2>{{ post.title }}</h2>
+                </a>
+                <div class="post-wrapper-head-right">
+                    <span>{{ post.author }}</span>
+                    <span>{{ post.published_at }}</span>
+                </div>
+            </div>
+            <div>
+                {{ post.content|safe }}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
