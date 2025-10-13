@@ -1,0 +1,29 @@
+@import '_header';
+@import '_media';
+@import '_posts';
+
+body {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+
+    main {
+        flex: 1;
+    }
+
+    footer {
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 56px;
+        margin-top: 20px;
+
+        p {
+            margin-bottom: 0;
+        }
+    }
+    
+}
+

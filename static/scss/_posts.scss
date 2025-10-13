@@ -1,0 +1,25 @@
+.posts-wrapper {
+
+    .post-wrapper {
+        border: 1px solid black;
+        border-radius: 12px;
+        padding: 10px;
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;    
+
+        &-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+
+            &-right {
+                display: flex;
+                flex-direction: column;
+
+                span {
+                    align-self: flex-end;
+                }
+            }
+        }
+    }
+}

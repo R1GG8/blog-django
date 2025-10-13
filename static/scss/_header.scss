@@ -1,0 +1,25 @@
+header {
+    .navbar {
+        a {
+            color: black;
+        }
+
+        .active {
+            color: rgb(123, 0, 0) !important;
+        }
+
+        &-right-part {
+            display: flex;
+            gap: 20px;
+            
+            ul {
+                display: flex;
+                align-items: center;
+
+                span {
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}

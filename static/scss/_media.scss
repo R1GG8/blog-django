@@ -1,0 +1,19 @@
+@media (max-width: 991.5px) {
+    ul {
+        margin-bottom: 0 !important;
+    }
+
+    .navbar-right-part {
+        flex-direction: column;
+        gap: 10px !important;
+
+        li {
+            align-self: flex-start;
+        }
+
+        .nav-logo {
+            margin-top: 5px;
+        }
+
+    }
+}
