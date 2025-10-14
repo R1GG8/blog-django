@@ -14,6 +14,11 @@
             <div class="post-content">
                 {{ post.content|safe }}
             </div>
+            <form class="post-change-form" action="{% url "blog:delete_post" post.id %}" method="post">
+                {% csrf_token %}
+                <a href="{% url "blog:edit_post" post.id %}">Редактировать</a>
+                <button type="submit">Удалить</button>
+            </form>
         </div>
     </div>
 {% endblock content %}

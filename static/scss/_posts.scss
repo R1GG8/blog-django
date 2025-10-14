@@ -1,7 +1,7 @@
 .posts-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .post-wrapper {
@@ -9,6 +9,42 @@
     border-radius: 12px;
     padding: 10px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+    .post-change-form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 5px;
+
+        button {
+            padding: 7px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            align-self: flex-end;
+            margin-top: 20px;
+
+            &:hover {
+                background-color: #0069d9;
+            }
+        }
+        a {
+            padding: 7px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            align-self: flex-end;
+            margin-top: 20px;
+
+            &:hover {
+                background-color: #0069d9;
+            }
+        }
+    }
 
     .post-content {
         p {
@@ -111,38 +147,3 @@
         padding-left: 80px;
     }
 }
-
-// .latest-posts-wrapper {
-//     margin-left: 50px;
-// }
-
-// .addpost-form-wrapper {
-//     form {
-//         p {
-//             display: flex;
-//             flex-direction: column;
-//             gap: 5px;
-
-//             textarea {
-//                 resize: none;
-//                 min-height: 500px;
-//             }
-
-//             input, textarea {
-//                 border-radius: 10px;
-//                 border: 1px solid black;
-//                 padding: 5px;
-//                 padding-left: 10px;
-//                 outline: none;
-
-//                 &:focus {
-//                     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;    
-//                 }
-//             }
-
-//             select {
-//                 align-self: flex-start;
-//             }
-//         }
-//     }
-// }

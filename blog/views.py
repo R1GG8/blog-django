@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Post, Category
 from .forms import Post, PostForm
+from django.views.decorators.http import require_POST
 
 
 def post_list(request):
@@ -26,7 +27,7 @@ def post_list_by_category(request, category_slug):
 
 
 def post_detail(request, post_slug):
-    post = get_object_or_404(Post, slug=post_slug)
+    post = get_object_or_404(Post, status=Post.Status.PUBLISHED, slug=post_slug)
 
     context = {
         'title': post.title,
@@ -38,7 +39,7 @@ def post_detail(request, post_slug):
 
 def addpost(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request, request.FILES)
         if form.is_valid():
             form_commit = form.save(commit=False)
             form_commit.author = request.user
@@ -54,4 +55,34 @@ def addpost(request):
     }
 
     return render(request, 'blog/addpost.html', context=context)
+
+
+@require_POST
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, status=Post.Status.PUBLISHED, id=post_id)
+
+    post.delete()
+
+    return redirect("blog:post_list")
+
+
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, status=Post.Status.PUBLISHED, id=post_id)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect(post.get_absolute_url())
+    
+    else:
+        form = PostForm(instance=post)
+
+    context = {
+        'title': 'Редактирование поста',
+        'form': form,
+    }
+
+    return render(request, 'blog/edit_post.html', context=context)
+
 

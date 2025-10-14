@@ -52,7 +52,7 @@ header .navbar-right-part ul span {
 .posts-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .post-wrapper {
@@ -60,6 +60,38 @@ header .navbar-right-part ul span {
   border-radius: 12px;
   padding: 10px;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.post-wrapper .post-change-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 5px;
+}
+.post-wrapper .post-change-form button {
+  padding: 7px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 20px;
+}
+.post-wrapper .post-change-form button:hover {
+  background-color: #0069d9;
+}
+.post-wrapper .post-change-form a {
+  padding: 7px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 20px;
+}
+.post-wrapper .post-change-form a:hover {
+  background-color: #0069d9;
 }
 .post-wrapper .post-content p a {
   color: #0069d9 !important;
