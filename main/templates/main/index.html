@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load blog_tags %}
+
 {% block content %}
     <div class="container">
         <h1 class="mt-3">
@@ -15,6 +17,10 @@
                             <span>{{ post.author }}</span>
                             <span>{{ post.published_at }}</span>
                         </div>
+                    </div>
+                    <p>Категория: <a style="color:#0069d9;" href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a></p>
+                    <div class="tags-wrapper">
+                        <p>{% show_tags post.id %}</p>
                     </div>
                     <div class="post-content">
                         {{ post.content|safe|truncatewords_html:50 }}

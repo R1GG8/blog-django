@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Post, Category
+from .models import Post, Category, Tag
 from .forms import Post, PostForm
 from django.views.decorators.http import require_POST
 
@@ -37,7 +37,13 @@ def post_list_by_category(request, category_slug):
 
     paginator = Paginator(posts, 3)
     page = request.GET.get("page", 1)
-    posts = paginator.page(page)
+    
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
 
     context = {
         'title': category_slug,
@@ -45,6 +51,29 @@ def post_list_by_category(request, category_slug):
     }
 
     return render(request, 'blog/post_list_by_category.html', context=context)
+
+
+def post_list_by_tag(request, tag_slug):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    posts = Post.published.filter(tags__slug=tag_slug)
+
+    paginator = Paginator(posts, 3)
+    page = request.GET.get('page', 1)
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    context = {
+        'title': tag.title,  # Используем название тега
+        'posts': posts,
+        'tag': tag,  # Передаем тег для использования в шаблоне
+    }
+
+    return render(request, 'blog/post_list_by_tag.html', context=context)
 
 
 def post_detail(request, post_slug):
@@ -65,6 +94,7 @@ def addpost(request):
             form_commit = form.save(commit=False)
             form_commit.author = request.user
             form_commit.save()
+            form.save_m2m()  # Сохраняем связи ManyToMany (теги)
             return redirect('blog:post_list')
 
     else:

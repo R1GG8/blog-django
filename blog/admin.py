@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Category
+from .models import Post, Category, Tag
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -12,6 +12,14 @@ class PostAdmin(admin.ModelAdmin):
 
 
 @admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title']
+    list_display_links = ['id', 'title']
+    search_fields = ['title']
+    prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(Tag)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['id', 'title']
     list_display_links = ['id', 'title']

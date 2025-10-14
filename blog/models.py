@@ -18,6 +18,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     category = models.ForeignKey(to='Category', on_delete=models.CASCADE, verbose_name='Категория')
+    tags = models.ManyToManyField(to='Tag', blank=True)
     content = RichTextUploadingField(verbose_name='Содержание')  # теперь можно вставлять картинки прямо в текст
     author = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name='Автор')
     created = models.DateTimeField(auto_now_add=True)
@@ -73,7 +74,7 @@ class Post(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название')
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
 
     def __str__(self):
         return self.title
@@ -85,3 +86,15 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категорию'
         verbose_name_plural = 'Категории'
+
+
+class Tag(models.Model):
+    title = models.CharField(max_length=200, verbose_name='Название')
+    slug = models.SlugField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'

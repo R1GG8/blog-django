@@ -6,7 +6,9 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="posts-wrapper">
+                    {% block head-tag %}{% endblock head-tag %}
                     {% for post in posts %}
+                        {% block head-cat %}{% endblock head-cat %}
                         <div class="post-wrapper">
                             <div class="post-wrapper-head">
                                 <a class="post-title-link" href="{{ post.get_absolute_url }}">
@@ -17,6 +19,8 @@
                                     <span>{{ post.published_at }}</span>
                                 </div>
                             </div>
+                            <p>Категория: <a style="color:#0069d9;" href="{{ post.category.get_absolute_url }}">{{ post.category.title }}</a></p>
+                            <div class="tags-wrapper">{% show_tags post.id %}</div>
                             <div class="post-content">
                                 {{ post.content|safe|truncatewords_html:50 }}
                             </div>

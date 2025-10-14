@@ -1,40 +1,10 @@
-{% extends "base.html" %}
+{% extends "blog/post_list.html" %}
 {% load blog_tags %}
 
-{% block content %}
-    <div class="post-list-wrapper">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="posts-wrapper">
-                    {% for post in posts %}
-                        <div class="post-wrapper">
-                            <div class="post-wrapper-head">
-                                <a class="post-title-link" href="{{ post.get_absolute_url }}">
-                                    <h2>{{ post.title }}</h2>
-                                </a>
-                                <div class="post-wrapper-head-right">
-                                    <span>{{ post.author }}</span>
-                                    <span>{{ post.published_at }}</span>
-                                </div>
-                            </div>
-                            <div class="post-content">
-                                {{ post.content|safe|truncatewords_html:50 }}
-                            </div>
-                            <form class="post-change-form" action="{% url "blog:delete_post" post.id %}" method="post">
-                                {% csrf_token %}
-                                <a href="{% url "blog:edit_post" post.id %}">Редактировать</a>
-                                <button type="submit">Удалить</button>
-                            </form>
-                        </div>
-                    {% empty %}
-                        <h1>Нет постов</h1>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-md-3">
-                {% show_latest_posts %}
-            </div>
-        </div>
-    </div>
-    {% include 'blog/includes/pagination.html' with page=posts %}   
-{% endblock content %}
+{% block head-tag %}{% endblock head-tag %}
+
+{% block head-cat %}
+{% if forloop.first %}
+    <h2>Посты по категории: {{ post.category.title }}</h2>
+{% endif %}
+{% endblock head-cat %}
