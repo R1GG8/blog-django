@@ -1,0 +1,43 @@
+<nav class="pagination-items" aria-label="...">
+    <ul class="pagination">
+        {% if page.has_previous %}
+            <li class="page-item sign-less">
+                <a class="page-link" href="?page={{ page.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% if page.previous_page_number != 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">1</a>
+                </li>
+            {% endif %}
+            {% if page.previous_page_number|add:"-1" > 1 %}
+                <li class="multy-dot"> ... </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page.previous_page_number }}">{{ page.number|add:-1 }}</a>
+            </li>
+        {% endif %}
+        <li class="page-item active"><a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a></li>
+
+        {% if page.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page.next_page_number }}">{{ page.number|add:1 }}</a>
+            </li>
+            {% if page.paginator.num_pages != page.number and page.paginator.num_pages != page.next_page_number %}
+                {% if page.paginator.num_pages|add:"-1" > page.next_page_number %}
+                    <li class="multy-dot"> ... </li>
+                {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page.paginator.num_pages }}">{{ page.paginator.num_pages }}</a>
+                </li>
+            {% endif %}
+
+            <li class="page-item sign-more">
+                <a class="page-link" href="?page={{ page.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

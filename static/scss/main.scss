@@ -13,7 +13,20 @@ body {
     flex-direction: column;
 
     main {
+        display: flex;
         flex: 1;
+        flex-direction: column;
+
+        .pagination-items {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            margin-top: 30px;
+
+            ul {
+                margin-bottom: 0 !important;
+            }
+        }
     }
 
     footer {

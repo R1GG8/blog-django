@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Post, Category
 from .forms import Post, PostForm
@@ -6,6 +7,22 @@ from django.views.decorators.http import require_POST
 
 def post_list(request):
     posts = Post.published.all()
+
+    paginator = Paginator(posts, 3)
+    page = request.GET.get("page", 1)
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+
+        # Если page_number не целое число, то
+        # выдать первую страницу
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    # Если page_number находится вне диапазона, то
+    # выдать последнюю страницу
+
 
     context = {
         'title': 'Блог',
@@ -17,6 +34,10 @@ def post_list(request):
 
 def post_list_by_category(request, category_slug):
     posts = Post.published.filter(category__slug=category_slug)
+
+    paginator = Paginator(posts, 3)
+    page = request.GET.get("page", 1)
+    posts = paginator.page(page)
 
     context = {
         'title': category_slug,
@@ -39,7 +60,7 @@ def post_detail(request, post_slug):
 
 def addpost(request):
     if request.method == 'POST':
-        form = PostForm(request, request.FILES)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form_commit = form.save(commit=False)
             form_commit.author = request.user

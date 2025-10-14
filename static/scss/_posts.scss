@@ -142,8 +142,17 @@
 .post-list-wrapper {
     padding-left: 50px;
     padding-top: 25px;
+    flex-grow: 1;
 
     .col-3 {
         padding-left: 80px;
     }
+}
+
+
+.multy-dot {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 25px;
+    transform: translateY(-7px);
 }

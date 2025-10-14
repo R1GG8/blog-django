@@ -172,9 +172,17 @@ header .navbar-right-part ul span {
 .post-list-wrapper {
   padding-left: 50px;
   padding-top: 25px;
+  flex-grow: 1;
 }
 .post-list-wrapper .col-3 {
   padding-left: 80px;
+}
+
+.multy-dot {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 25px;
+  transform: translateY(-7px);
 }
 
 body {
@@ -187,7 +195,18 @@ body a {
   text-decoration: none;
 }
 body main {
+  display: flex;
   flex: 1;
+  flex-direction: column;
+}
+body main .pagination-items {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  margin-top: 30px;
+}
+body main .pagination-items ul {
+  margin-bottom: 0 !important;
 }
 body footer {
   flex-shrink: 0;
