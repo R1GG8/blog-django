@@ -67,6 +67,8 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+        ordering = ["-published_at"]
+        indexes = [models.Index(fields=['-published_at'])]
 
 
 class Category(models.Model):
@@ -75,6 +77,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("blog:post_list_by_category", args=[self.slug])
+    
 
     class Meta:
         verbose_name = 'Категорию'

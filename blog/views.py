@@ -14,6 +14,17 @@ def post_list(request):
     return render(request, 'blog/post_list.html', context=context)
 
 
+def post_list_by_category(request, category_slug):
+    posts = Post.published.filter(category__slug=category_slug)
+
+    context = {
+        'title': category_slug,
+        'posts': posts,
+    }
+
+    return render(request, 'blog/post_list_by_category.html', context=context)
+
+
 def post_detail(request, post_slug):
     post = get_object_or_404(Post, slug=post_slug)
 

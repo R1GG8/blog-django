@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,10 +35,9 @@
                         Категории
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        {% for category in categories %}
+                            <li><a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.title }}</a></li>
+                        {% endfor %}
                     </ul>
                     </li>
                     <li class="nav-item">

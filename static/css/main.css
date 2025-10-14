@@ -40,6 +40,15 @@ header .navbar-right-part ul span {
     margin-top: 5px;
   }
 }
+@media (max-width: 768px) {
+  .post-list-wrapper {
+    padding-left: 5px !important;
+  }
+  .post-list-wrapper .row {
+    flex-direction: column-reverse;
+    gap: 25px;
+  }
+}
 .posts-wrapper {
   display: flex;
   flex-direction: column;
@@ -51,6 +60,9 @@ header .navbar-right-part ul span {
   border-radius: 12px;
   padding: 10px;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.post-wrapper .post-content p a {
+  color: #0069d9 !important;
 }
 .post-wrapper-head {
   display: flex;
@@ -104,12 +116,6 @@ header .navbar-right-part ul span {
   color: #b40000;
   font-size: 14px;
 }
-.addpost-form-wrapper input.is-invalid,
-.addpost-form-wrapper textarea.is-invalid,
-.addpost-form-wrapper select.is-invalid {
-  border-color: #b40000;
-  background-color: #fff5f5;
-}
 .addpost-form-wrapper .btn {
   padding: 10px 15px;
   background-color: #007bff;
@@ -126,6 +132,17 @@ header .navbar-right-part ul span {
 .addpost-form-wrapper textarea {
   resize: none;
   min-height: 500px;
+}
+.addpost-form-wrapper select {
+  align-self: flex-start;
+}
+
+.post-list-wrapper {
+  padding-left: 50px;
+  padding-top: 25px;
+}
+.post-list-wrapper .col-3 {
+  padding-left: 80px;
 }
 
 body {

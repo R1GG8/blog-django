@@ -10,6 +10,14 @@
     padding: 10px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
+    .post-content {
+        p {
+            a {
+                color: #0069d9 !important;
+            }
+        }
+    }
+
     &-head {
         display: flex;
         align-items: center;
@@ -70,13 +78,6 @@
         font-size: 14px;
     }
 
-    input.is-invalid,
-    textarea.is-invalid,
-    select.is-invalid {
-        border-color: #b40000;
-        background-color: #fff5f5;
-    }
-
     .btn {
         padding: 10px 15px;
         background-color: #007bff;
@@ -96,9 +97,24 @@
         resize: none;
         min-height: 500px;
     }
+
+    select {
+        align-self: flex-start;
+    }
 }
 
+.post-list-wrapper {
+    padding-left: 50px;
+    padding-top: 25px;
 
+    .col-3 {
+        padding-left: 80px;
+    }
+}
+
+// .latest-posts-wrapper {
+//     margin-left: 50px;
+// }
 
 // .addpost-form-wrapper {
 //     form {
