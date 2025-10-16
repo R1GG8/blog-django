@@ -1,0 +1,18 @@
+{% if similar_posts %}
+<div class="similar-posts mt-4">
+    <h4>Похожие посты</h4>
+    <div class="similar-posts-list mt-3">
+        {% for post in similar_posts %}
+        <div class="similar-post-item">
+            <a href="{{ post.get_absolute_url }}">
+                <h5>{{ post.title }}</h5>
+            </a>
+            <p class="text-muted">
+                {{ post.published_at|date:"d M Y" }} | 
+                Общих тегов: {{ post.same_tags }}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

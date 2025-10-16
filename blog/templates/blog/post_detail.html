@@ -53,6 +53,9 @@
                     </form>
                 </div>
             {% endfor %}
+            <div class="similar-posts-section">
+                {% show_similar_posts post.id %}
+            </div>
         </div>
     </div>
 {% endblock content %}

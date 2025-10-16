@@ -236,7 +236,10 @@ header .navbar-right-part ul span {
 }
 .comment-wrapper .comment-delete-form {
   margin-top: 20px;
-  text-align: end;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: end;
 }
 .comment-wrapper .comment-delete-form button {
   padding: 10px 15px;
@@ -251,6 +254,7 @@ header .navbar-right-part ul span {
 }
 .comment-wrapper .comment-delete-form a {
   color: #0069d9 !important;
+  display: inline-block;
 }
 
 body {
