@@ -38,3 +38,11 @@
         padding-left: 5px !important;
     }
 } 
+
+@media (max-width: 500px) {
+    .post-comment-form {
+        textarea {
+            width: 220px !important;
+        }
+    }
+} 

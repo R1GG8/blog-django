@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Post, Category, Tag
-from .forms import Post, PostForm
+from .models import Post, Category, Tag, Comment
+from .forms import PostForm, CommentForm
 from django.views.decorators.http import require_POST
 
 
@@ -37,7 +37,7 @@ def post_list_by_category(request, category_slug):
 
     paginator = Paginator(posts, 3)
     page = request.GET.get("page", 1)
-    
+
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -78,10 +78,14 @@ def post_list_by_tag(request, tag_slug):
 
 def post_detail(request, post_slug):
     post = get_object_or_404(Post, status=Post.Status.PUBLISHED, slug=post_slug)
+    comments = post.comments.all()  # Фильтруем комментарии по посту
+    # form = CommentForm()  # Пустая форма для рендеринга
 
     context = {
         'title': post.title,
         'post': post,
+        'comments': comments,
+        # 'form': form,  # Передаем форму в шаблон
     }
 
     return render(request, 'blog/post_detail.html', context=context)
@@ -137,3 +141,58 @@ def edit_post(request, post_id):
     return render(request, 'blog/edit_post.html', context=context)
 
 
+@require_POST
+# @login_required
+def comment_post(request, post_id):
+    post = get_object_or_404(Post, status=Post.Status.PUBLISHED, id=post_id)
+    form = CommentForm(request.POST)
+    
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.author = request.user
+        comment.save()
+    return redirect(post.get_absolute_url())
+    
+    # # Если форма невалидна, отображаем страницу поста с ошибками
+    # comments = post.comments.all()  # Фильтруем комментарии по посту
+    # context = {
+    #     'title': post.title,
+    #     'post': post,
+    #     'comments': comments,
+    #     'form': form,  # Передаем форму с ошибками
+    # }
+    # return render(request, 'blog/post_detail.html', context=context)
+
+@require_POST
+def delete_comment(request, post_id, comment_id):
+    post = get_object_or_404(Post, status=Post.Status.PUBLISHED, id=post_id)
+
+    comment = get_object_or_404(Comment, id=comment_id)
+    comment.delete()
+    
+    return redirect(post.get_absolute_url())
+
+
+def edit_comment(request, post_id, comment_id):
+    post = get_object_or_404(Post, status=Post.Status.PUBLISHED, id=post_id)
+    comment = get_object_or_404(Comment, id=comment_id)
+    comments = post.comments.all()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect(post.get_absolute_url())
+    else:
+        form = CommentForm(instance=comment)
+
+    context = {
+        'title': 'Редактирование комментария',
+        'form': form,
+        'comments': comments,
+        'post': post,
+        'comment': comment,  
+    }
+    
+    return render(request, 'blog/edit_comment.html', context=context)

@@ -49,6 +49,11 @@ header .navbar-right-part ul span {
     gap: 25px;
   }
 }
+@media (max-width: 500px) {
+  .post-comment-form textarea {
+    width: 220px !important;
+  }
+}
 .posts-wrapper {
   display: flex;
   flex-direction: column;
@@ -67,6 +72,7 @@ header .navbar-right-part ul span {
   gap: 15px;
   align-items: center;
   margin-right: 5px;
+  margin-bottom: 15px;
 }
 .post-wrapper .post-change-form button {
   padding: 7px 12px;
@@ -190,6 +196,60 @@ header .navbar-right-part ul span {
 }
 
 .tags-wrapper a {
+  color: #0069d9 !important;
+}
+
+.post-comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+.post-comment-form textarea {
+  width: 300px;
+  height: 120px;
+  margin-bottom: 20px;
+}
+.post-comment-form button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.post-comment-form button:hover {
+  background-color: #0069d9;
+}
+
+.comment-wrapper {
+  max-width: 400px;
+  margin-top: 30px;
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.comment-wrapper .comment-head-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.comment-wrapper .comment-delete-form {
+  margin-top: 20px;
+  text-align: end;
+}
+.comment-wrapper .comment-delete-form button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.comment-wrapper .comment-delete-form button:hover {
+  background-color: #0069d9;
+}
+.comment-wrapper .comment-delete-form a {
   color: #0069d9 !important;
 }
 

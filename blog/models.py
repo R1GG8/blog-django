@@ -98,3 +98,17 @@ class Tag(models.Model):
     class Meta:
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
+
+
+class Comment(models.Model):
+    content = models.TextField(verbose_name="Содержимое")
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name="Автор")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        ordering = ["-created_at"]
+        indexes = [models.Index(fields=['-created_at'])]
