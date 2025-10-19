@@ -12,3 +12,5 @@ security.log
 db.sqlite3
 media/
 debug.log/
+
+mysite_data.json
