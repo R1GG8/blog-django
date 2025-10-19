@@ -3,10 +3,16 @@ from django.shortcuts import redirect, render, get_object_or_404
 from .models import Post, Category, Tag, Comment
 from .forms import PostForm, CommentForm
 from django.views.decorators.http import require_POST
+from blog.utils import q_search
 
 
 def post_list(request):
-    posts = Post.published.all()
+    query = request.GET.get('q', None)
+
+    if query:
+        posts = q_search(query)
+    else:
+        posts = Post.published.all()
 
     paginator = Paginator(posts, 3)
     page = request.GET.get("page", 1)
