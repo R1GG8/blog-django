@@ -7,7 +7,7 @@
             <a href="{{ post.get_absolute_url }}">
                 <h5>{{ post.title }}</h5>
             </a>
-            <p class="text-muted">
+            <p class="text-mut" id="idtext-muted">
                 {{ post.published_at|date:"d M Y" }} | 
                 Общих тегов: {{ post.same_tags }}
             </p>

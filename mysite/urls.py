@@ -8,6 +8,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('main.urls', namespace='main')),
     path('blog/', include('blog.urls', namespace='blog')),
+    path('users/', include('users.urls', namespace='users')),
 ]
 
 if settings.DEBUG:

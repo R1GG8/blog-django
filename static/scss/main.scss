@@ -2,9 +2,40 @@
 @import '_media';
 @import '_posts';
 
+// CSS переменные для темной темы
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --navbar-bg: #f8f9fa;
+    --footer-bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #dee2e6;
+    --link-color: #0069d9;
+    --shadow-color: rgba(14, 30, 37, 0.12);
+    --shadow-color-dark: rgba(14, 30, 37, 0.32);
+    --error-color: #b40000;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --navbar-bg: #2d2d2d;
+    --footer-bg: #2d2d2d;
+    --card-bg: #2d2d2d;
+    --border-color: #444444;
+    --link-color: #4da6ff;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --shadow-color-dark: rgba(0, 0, 0, 0.5);
+    --error-color: #ff6b6b;
+}
+
 body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    
     a {
-        color: black;
+        color: var(--text-color);
         text-decoration: none;
     }   
 
@@ -29,7 +60,9 @@ body {
         }
     }
 
-    footer {
+    #footer {
+        background-color: var(--footer-bg) !important;
+        color: var(--text-color);
         flex-shrink: 0;
         display: flex;
         justify-content: center;
@@ -42,6 +75,4 @@ body {
             margin-bottom: 0;
         }
     }
-    
 }
-
